@@ -48,7 +48,15 @@ $ anvil
 ### Deploy
 
 ```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
+export DEPLOYER_PRIVATE_KEY=0x...
+export PROTOCOL_SHARE=250
+export EIP712_NAME=EasySwap
+export EIP712_VERSION=1
+# export FINAL_OWNER=0xYourOwner
+
+forge script script/DeployEasySwap.s.sol:DeployEasySwapScript \
+  --rpc-url <YOUR_RPC_URL> \
+  --broadcast
 ```
 
 ### Cast
