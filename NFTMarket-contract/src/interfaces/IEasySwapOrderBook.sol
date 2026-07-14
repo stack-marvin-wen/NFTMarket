@@ -1,28 +1,28 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.35;
 
 import {OrderKey, Price, LibOrder} from "../libraries/LibOrder.sol";
 interface IEasySwapOrderBook { 
     /**
-     * @notice 创建多个订单和交易对应资产
+     * @dev 创建多个订单和交易对应资产
      * @param newOrders Array of orders to find matching orders for.
-     * @return Array of order keys for orders that can be filled by the given orders.
+     * @return newOrderKeys of order keys for orders that can be filled by the given orders.
      */
     function makeOrders(
         LibOrder.Order[] calldata newOrders
     ) external payable returns (OrderKey[] memory newOrderKeys);
     /**
-     * @notice 取消多个订单
-     * @param cancelOrders Array of orders to cancel.
-     * @return Array of order keys for orders that were cancelled.
+     * @dev 取消多个订单
+     * @param orderKeys Array of orders to cancel.
+     * @return successes of order keys for orders that were cancelled.
      */
     function cancelOrders(
         OrderKey[] calldata orderKeys
     ) external returns (bool[] memory successes);
     /**
-     * @notice 修改多个订单
-     * @param newOrders Array of orders to modify.
-     * @return Array of order keys for orders that were modified.
+     * @dev 修改多个订单
+     * @param editDetails Array of orders to modify.
+     * @return newOrderKeys of order keys for orders that were modified.
      */
     function editOrders(
         LibOrder.EditDetail[] calldata editDetails

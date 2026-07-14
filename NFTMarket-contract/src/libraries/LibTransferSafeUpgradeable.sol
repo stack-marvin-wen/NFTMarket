@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: AGPL-3.0-only
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.35;
 
 import {IERC721} from "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol";
 import {IERC20} from "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";
@@ -16,7 +16,7 @@ library LibTransferSafeUpgradeable{
         bool success;
         assembly{
             // Get a pointer to some free memory.
-            let freeMemoryPointer := mload(0x40);
+            let freeMemoryPointer := mload(0x40)
             mstore(
                 freeMemoryPointer,
                 0x23b872dd00000000000000000000000000000000000000000000000000000000

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.35;
 
 import {Price} from "./RedBlackTreeLibrary.sol";
 type OrderKey is bytes32;
@@ -9,8 +9,8 @@ library LibOrder {
         Bid   // 买出
     }
     enum SaleKind {
-        Market, // 市价
-        Limit   // 限价
+        FixedPriceForCollection, // 市价
+        FixedPriceForItem   // 限价
     }
     /**
      * @dev NFT 资产结构体

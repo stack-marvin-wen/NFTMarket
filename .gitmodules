@@ -1,0 +1,6 @@
+[submodule "NFTMarket-contract/lib/openzeppelin-contracts"]
+	path = NFTMarket-contract/lib/openzeppelin-contracts
+	url = https://github.com/OpenZeppelin/openzeppelin-contracts
+[submodule "NFTMarket-contract/lib/openzeppelin-contracts-upgradeable"]
+	path = NFTMarket-contract/lib/openzeppelin-contracts-upgradeable
+	url = https://github.com/OpenZeppelin/openzeppelin-contracts-upgradeable

@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.35;
 import {LibOrder, OrderKey} from "../libraries/LibOrder.sol";
 interface IEasySwapVault{
-    function balanceOf(OrderKey calldata orderKey) external view returns (uint256 ETHAmount, uint256 tokenId);
+    function balanceOf(OrderKey orderKey) external view returns (uint256 ETHAmount, uint256 tokenId);
     function depositETH(OrderKey orderKey, uint256 ETHAmount) external payable;
     function withdrawETH(OrderKey orderKey, uint256 ETHAmount,address to) external;
     function depositNFT(OrderKey orderKey,address from, address collection,uint256 tokenId) external;
