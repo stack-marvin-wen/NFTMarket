@@ -20,6 +20,9 @@ fi
 RPC_URL="${RPC_URL:-http://127.0.0.1:8545}"
 ANVIL_PORT="${ANVIL_PORT:-8545}"
 CHAIN_ID="${CHAIN_ID:-31337}"
+# 本地调试可放宽合约大小限制（默认放宽到 100000 字节）
+# 生产网络不会应用这个参数，主网/测试网仍受 EIP-170 限制。
+ANVIL_CODE_SIZE_LIMIT="${ANVIL_CODE_SIZE_LIMIT:-100000}"
 
 # Anvil 默认第一个测试账户私钥
 export DEPLOYER_PRIVATE_KEY="${DEPLOYER_PRIVATE_KEY:-0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80}"
@@ -41,8 +44,8 @@ cleanup() {
 trap cleanup EXIT
 
 if ! cast chain-id --rpc-url "$RPC_URL" >/dev/null 2>&1; then
-  echo "Starting local anvil on port $ANVIL_PORT (chain-id $CHAIN_ID)..."
-  anvil --port "$ANVIL_PORT" --chain-id "$CHAIN_ID" >/tmp/easyswap-anvil.log 2>&1 &
+  echo "Starting local anvil on port $ANVIL_PORT (chain-id $CHAIN_ID, code-size-limit $ANVIL_CODE_SIZE_LIMIT)..."
+  anvil --port "$ANVIL_PORT" --chain-id "$CHAIN_ID" --code-size-limit "$ANVIL_CODE_SIZE_LIMIT" >/tmp/easyswap-anvil.log 2>&1 &
   ANVIL_PID=$!
   ANVIL_STARTED_BY_SCRIPT=1
 
@@ -59,6 +62,8 @@ if ! cast chain-id --rpc-url "$RPC_URL" >/dev/null 2>&1; then
   fi
 else
   echo "Detected running RPC at $RPC_URL, reusing it."
+  echo "If deployment fails with contract size limit, restart your anvil with: --code-size-limit $ANVIL_CODE_SIZE_LIMIT"
+  echo "Example: pkill -f anvil && anvil --port $ANVIL_PORT --chain-id $CHAIN_ID --code-size-limit $ANVIL_CODE_SIZE_LIMIT"
 fi
 
 echo "Deploying EasySwap and running acceptance checks..."
