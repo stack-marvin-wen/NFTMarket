@@ -1,0 +1,1910 @@
+basePath: /api/v1
+definitions:
+  types.AdminAddContractReq:
+    properties:
+      address:
+        description: 合约地址
+        type: string
+      banner_uri:
+        description: Banner图片
+        type: string
+      chain_id:
+        description: 链ID
+        type: integer
+      creator:
+        description: 创建者地址
+        type: string
+      description:
+        description: 描述
+        type: string
+      discord:
+        description: Discord链接
+        type: string
+      image_uri:
+        description: 项目图片
+        type: string
+      instagram:
+        description: Instagram链接
+        type: string
+      name:
+        description: 合约名称
+        type: string
+      symbol:
+        description: 项目标识
+        type: string
+      token_standard:
+        description: 合约实现标准(721/1155)
+        type: integer
+      twitter:
+        description: Twitter链接
+        type: string
+      website:
+        description: 官网
+        type: string
+    required:
+    - address
+    - chain_id
+    - name
+    - symbol
+    - token_standard
+    type: object
+  types.AdminRefreshMetadataReq:
+    properties:
+      chain_id:
+        description: 链ID
+        type: integer
+      contract_addr:
+        description: 合约地址
+        type: string
+      token_ids:
+        description: Token ID列表(可选，为空则刷新所有)
+        items:
+          type: string
+        type: array
+    required:
+    - chain_id
+    - contract_addr
+    type: object
+  types.AdminSyncContractReq:
+    properties:
+      chain_id:
+        description: 链ID
+        type: integer
+      contract_addr:
+        description: 合约地址
+        type: string
+      end_block:
+        description: 结束区块(可选)
+        type: integer
+      start_block:
+        description: 起始区块(可选)
+        type: integer
+    required:
+    - chain_id
+    - contract_addr
+    type: object
+  types.AdminSyncTokenReq:
+    properties:
+      chain_id:
+        description: 链ID
+        type: integer
+      contract_addr:
+        description: 合约地址
+        type: string
+      token_id:
+        description: Token ID
+        type: string
+    required:
+    - chain_id
+    - contract_addr
+    - token_id
+    type: object
+  types.AdminUpdateContractReq:
+    properties:
+      auth:
+        description: 认证状态
+        type: integer
+      banner_uri:
+        description: Banner图片
+        type: string
+      description:
+        description: 描述
+        type: string
+      discord:
+        description: Discord链接
+        type: string
+      image_uri:
+        description: 项目图片
+        type: string
+      instagram:
+        description: Instagram链接
+        type: string
+      name:
+        description: 合约名称
+        type: string
+      symbol:
+        description: 项目标识
+        type: string
+      twitter:
+        description: Twitter链接
+        type: string
+      website:
+        description: 官网
+        type: string
+    type: object
+  types.COSCredentials:
+    properties:
+      sessionToken:
+        type: string
+      tmpSecretId:
+        type: string
+      tmpSecretKey:
+        type: string
+    type: object
+  types.COSTokenRequest:
+    properties:
+      file_name:
+        description: 文件名
+        type: string
+      file_size:
+        description: 文件大小（字节）
+        type: integer
+      file_type:
+        description: 文件类型：image, video, audio, document
+        type: string
+    required:
+    - file_name
+    - file_size
+    - file_type
+    type: object
+  types.COSTokenResp:
+    properties:
+      result:
+        $ref: '#/definitions/types.COSTokenResponse'
+    type: object
+  types.COSTokenResponse:
+    properties:
+      allowActions:
+        items:
+          type: string
+        type: array
+      allowPrefix:
+        type: string
+      bucket:
+        type: string
+      credentials:
+        $ref: '#/definitions/types.COSCredentials'
+      expiration:
+        type: string
+      expiredTime:
+        type: integer
+      key:
+        description: 生成的文件路径
+        type: string
+      region:
+        type: string
+      requestId:
+        type: string
+      startTime:
+        type: string
+      uploadUrl:
+        type: string
+    type: object
+  types.COSUploadResult:
+    properties:
+      bucket:
+        type: string
+      etag:
+        type: string
+      key:
+        type: string
+      location:
+        type: string
+    type: object
+  types.CollectionRankingResp:
+    properties:
+      result: {}
+    type: object
+  types.CommonResp:
+    properties:
+      result: {}
+    type: object
+  types.ItemTraitsResp:
+    properties:
+      result: {}
+    type: object
+  types.LoginReq:
+    properties:
+      address:
+        type: string
+      chain_id:
+        type: integer
+      message:
+        type: string
+      signature:
+        type: string
+    type: object
+  types.MetaNodeBatchMintRequest:
+    properties:
+      chain_id:
+        description: 链ID
+        type: integer
+      mints:
+        description: 批量铸造信息
+        items:
+          $ref: '#/definitions/types.MetaNodeSingleMintInfo'
+        type: array
+    required:
+    - chain_id
+    - mints
+    type: object
+  types.MetaNodeMintRequest:
+    properties:
+      chain_id:
+        description: 链ID
+        type: integer
+      description:
+        description: NFT描述（可选，用于记录）
+        type: string
+      name:
+        description: NFT名称（可选，用于记录）
+        type: string
+      to_address:
+        description: 接收地址
+        type: string
+      token_uri:
+        description: NFT元数据URI
+        type: string
+    required:
+    - chain_id
+    - to_address
+    - token_uri
+    type: object
+  types.MetaNodeMintResponse:
+    properties:
+      contract_addr:
+        description: 合约地址
+        type: string
+      message:
+        description: 响应消息
+        type: string
+      result:
+        $ref: '#/definitions/types.MetaNodeMintResult'
+      token_id:
+        description: Token ID
+        type: string
+      transaction_id:
+        description: 交易ID（同tx_hash）
+        type: string
+    type: object
+  types.MetaNodeMintResult:
+    properties:
+      block_number:
+        description: 区块号（确认后）
+        type: integer
+      gas_price:
+        description: Gas价格
+        type: string
+      gas_used:
+        description: 消耗的Gas
+        type: integer
+      status:
+        description: '交易状态: pending, confirmed, failed'
+        type: string
+      token_id:
+        description: 生成的Token ID
+        type: string
+      tx_hash:
+        description: 交易哈希
+        type: string
+    type: object
+  types.MetaNodeSingleMintInfo:
+    properties:
+      description:
+        description: NFT描述（可选）
+        type: string
+      name:
+        description: NFT名称（可选）
+        type: string
+      to_address:
+        description: 接收地址
+        type: string
+      token_uri:
+        description: NFT元数据URI
+        type: string
+    required:
+    - to_address
+    - token_uri
+    type: object
+  types.MintRequest:
+    properties:
+      attributes:
+        description: JSON string of attributes
+        type: string
+      chain_id:
+        type: integer
+      description:
+        type: string
+      name:
+        type: string
+      to_address:
+        type: string
+      token_uri:
+        type: string
+    required:
+    - chain_id
+    - to_address
+    - token_uri
+    type: object
+  types.MintResponse:
+    properties:
+      result:
+        $ref: '#/definitions/types.MintResult'
+      token_id:
+        type: string
+      transaction_id:
+        type: string
+    type: object
+  types.MintResult:
+    properties:
+      status:
+        type: string
+      token_id:
+        type: string
+      tx_hash:
+        type: string
+    type: object
+  types.UserLoginResp:
+    properties:
+      result: {}
+    type: object
+info:
+  contact: {}
+  title: EasySwap Backend API
+  version: "1.0"
+paths:
+  /activities:
+    get:
+      parameters:
+      - description: Activity filter JSON string
+        in: query
+        name: filters
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get multi-chain activities
+      tags:
+      - Activity
+  /admin/contracts:
+    get:
+      parameters:
+      - description: Page number
+        in: query
+        name: page
+        type: integer
+      - description: Page size
+        in: query
+        name: page_size
+        type: integer
+      - description: Chain ID filter
+        in: query
+        name: chain_id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Admin get contracts
+      tags:
+      - Admin
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Add contract request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.AdminAddContractReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Admin add contract
+      tags:
+      - Admin
+  /admin/contracts/{chain_id}/{address}:
+    delete:
+      parameters:
+      - description: Chain ID
+        in: path
+        name: chain_id
+        required: true
+        type: integer
+      - description: Contract address
+        in: path
+        name: address
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Admin delete contract
+      tags:
+      - Admin
+    get:
+      parameters:
+      - description: Chain ID
+        in: path
+        name: chain_id
+        required: true
+        type: integer
+      - description: Contract address
+        in: path
+        name: address
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Admin get contract detail
+      tags:
+      - Admin
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Chain ID
+        in: path
+        name: chain_id
+        required: true
+        type: integer
+      - description: Contract address
+        in: path
+        name: address
+        required: true
+        type: string
+      - description: Update contract request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.AdminUpdateContractReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Admin update contract
+      tags:
+      - Admin
+  /admin/contracts/{chain_id}/{address}/disable:
+    post:
+      parameters:
+      - description: Chain ID
+        in: path
+        name: chain_id
+        required: true
+        type: integer
+      - description: Contract address
+        in: path
+        name: address
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Admin disable contract
+      tags:
+      - Admin
+  /admin/contracts/{chain_id}/{address}/enable:
+    post:
+      parameters:
+      - description: Chain ID
+        in: path
+        name: chain_id
+        required: true
+        type: integer
+      - description: Contract address
+        in: path
+        name: address
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Admin enable contract
+      tags:
+      - Admin
+  /admin/contracts/{chain_id}/{address}/sync:
+    post:
+      parameters:
+      - description: Chain ID
+        in: path
+        name: chain_id
+        required: true
+        type: integer
+      - description: Contract address
+        in: path
+        name: address
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Admin sync contract by path params
+      tags:
+      - Admin
+  /admin/nft-import/sync-contract:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Sync contract request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.AdminSyncContractReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Admin sync contract NFTs
+      tags:
+      - Admin
+  /admin/nft-import/sync-history:
+    get:
+      parameters:
+      - description: Page number
+        in: query
+        name: page
+        type: integer
+      - description: Page size
+        in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Admin get sync history
+      tags:
+      - Admin
+  /admin/nft-import/sync-status/{task_id}:
+    get:
+      parameters:
+      - description: Task ID
+        in: path
+        name: task_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Admin get sync status
+      tags:
+      - Admin
+  /admin/nft-import/sync-token:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Sync token request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.AdminSyncTokenReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Admin sync one token
+      tags:
+      - Admin
+  /admin/system/refresh-metadata:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Refresh metadata request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.AdminRefreshMetadataReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Admin refresh metadata
+      tags:
+      - Admin
+  /admin/system/stats:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Admin get system stats
+      tags:
+      - Admin
+  /bid-orders:
+    get:
+      parameters:
+      - description: Order filter JSON string
+        in: query
+        name: filters
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get bid order infos
+      tags:
+      - Order
+  /collections/{address}:
+    get:
+      parameters:
+      - description: Collection address
+        in: path
+        name: address
+        required: true
+        type: string
+      - description: Chain ID
+        in: query
+        name: chain_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get collection detail
+      tags:
+      - Collection
+  /collections/{address}/{token_id}:
+    get:
+      parameters:
+      - description: Collection address
+        in: path
+        name: address
+        required: true
+        type: string
+      - description: Token ID
+        in: path
+        name: token_id
+        required: true
+        type: string
+      - description: Chain ID
+        in: query
+        name: chain_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get item detail
+      tags:
+      - Collection
+  /collections/{address}/{token_id}/bids:
+    get:
+      parameters:
+      - description: Collection address
+        in: path
+        name: address
+        required: true
+        type: string
+      - description: Token ID
+        in: path
+        name: token_id
+        required: true
+        type: string
+      - description: Item bids filter JSON string
+        in: query
+        name: filters
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get item bids in collection
+      tags:
+      - Collection
+  /collections/{address}/{token_id}/image:
+    get:
+      parameters:
+      - description: Collection address
+        in: path
+        name: address
+        required: true
+        type: string
+      - description: Token ID
+        in: path
+        name: token_id
+        required: true
+        type: string
+      - description: Chain ID
+        in: query
+        name: chain_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get item image
+      tags:
+      - Collection
+  /collections/{address}/{token_id}/listing:
+    get:
+      parameters:
+      - description: Collection address
+        in: path
+        name: address
+        required: true
+        type: string
+      - description: Token ID
+        in: path
+        name: token_id
+        required: true
+        type: string
+      - description: Chain ID
+        in: query
+        name: chain_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get item listing info
+      tags:
+      - Collection
+  /collections/{address}/{token_id}/metadata:
+    post:
+      parameters:
+      - description: Collection address
+        in: path
+        name: address
+        required: true
+        type: string
+      - description: Token ID
+        in: path
+        name: token_id
+        required: true
+        type: string
+      - description: Chain ID
+        in: query
+        name: chain_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.CommonResp'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Refresh item metadata
+      tags:
+      - Collection
+  /collections/{address}/{token_id}/owner:
+    get:
+      parameters:
+      - description: Collection address
+        in: path
+        name: address
+        required: true
+        type: string
+      - description: Token ID
+        in: path
+        name: token_id
+        required: true
+        type: string
+      - description: Chain ID
+        in: query
+        name: chain_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get item owner
+      tags:
+      - Collection
+  /collections/{address}/{token_id}/traits:
+    get:
+      parameters:
+      - description: Collection address
+        in: path
+        name: address
+        required: true
+        type: string
+      - description: Token ID
+        in: path
+        name: token_id
+        required: true
+        type: string
+      - description: Chain ID
+        in: query
+        name: chain_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.ItemTraitsResp'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get item traits
+      tags:
+      - Collection
+  /collections/{address}/bids:
+    get:
+      parameters:
+      - description: Collection address
+        in: path
+        name: address
+        required: true
+        type: string
+      - description: Collection bids filter JSON string
+        in: query
+        name: filters
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get collection bids
+      tags:
+      - Collection
+  /collections/{address}/history-sales:
+    get:
+      parameters:
+      - description: Collection address
+        in: path
+        name: address
+        required: true
+        type: string
+      - description: Chain ID
+        in: query
+        name: chain_id
+        required: true
+        type: integer
+      - description: 'Duration: 24h,7d,30d'
+        in: query
+        name: duration
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get history sales
+      tags:
+      - Collection
+  /collections/{address}/items:
+    get:
+      parameters:
+      - description: Collection address
+        in: path
+        name: address
+        required: true
+        type: string
+      - description: Collection items filter JSON string
+        in: query
+        name: filters
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get collection items
+      tags:
+      - Collection
+  /collections/{address}/mint:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Collection address
+        in: path
+        name: address
+        required: true
+        type: string
+      - description: Mint request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.MintRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.MintResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Mint NFT for collection
+      tags:
+      - Collection
+  /collections/{address}/top-trait:
+    get:
+      parameters:
+      - description: Collection address
+        in: path
+        name: address
+        required: true
+        type: string
+      - description: Top trait filter JSON string
+        in: query
+        name: filters
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get top trait prices
+      tags:
+      - Collection
+  /collections/ranking:
+    get:
+      parameters:
+      - description: Ranking limit
+        in: query
+        name: limit
+        required: true
+        type: integer
+      - description: 'Time range: 15m,1h,6h,1d,7d,30d'
+        in: query
+        name: range
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.CollectionRankingResp'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get collection ranking
+      tags:
+      - Collection
+  /metanode/batch-mint:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Batch mint request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.MetaNodeBatchMintRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Batch mint MetaNode NFTs
+      tags:
+      - MetaNode
+  /metanode/contract-info:
+    get:
+      parameters:
+      - description: Chain ID
+        in: query
+        name: chain_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get MetaNode contract info
+      tags:
+      - MetaNode
+  /metanode/mint:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Mint request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.MetaNodeMintRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.MetaNodeMintResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Mint one MetaNode NFT
+      tags:
+      - MetaNode
+  /metanode/query:
+    get:
+      parameters:
+      - description: Chain ID
+        in: query
+        name: chain_id
+        required: true
+        type: integer
+      - description: Contract address
+        in: query
+        name: contract_addr
+        type: string
+      - description: Token ID
+        in: query
+        name: token_id
+        type: string
+      - description: Owner address
+        in: query
+        name: owner
+        type: string
+      - description: Page number
+        in: query
+        name: page
+        type: integer
+      - description: Page size
+        in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Query MetaNode NFTs
+      tags:
+      - MetaNode
+  /metanode/token/{token_id}:
+    get:
+      parameters:
+      - description: Token ID
+        in: path
+        name: token_id
+        required: true
+        type: string
+      - description: Chain ID
+        in: query
+        name: chain_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get MetaNode token info
+      tags:
+      - MetaNode
+  /portfolio/bids:
+    get:
+      parameters:
+      - description: Portfolio bid filter JSON string
+        in: query
+        name: filters
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get user bids across chains
+      tags:
+      - Portfolio
+  /portfolio/collections:
+    get:
+      parameters:
+      - description: Portfolio collection filter JSON string
+        in: query
+        name: filters
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get user collections across chains
+      tags:
+      - Portfolio
+  /portfolio/items:
+    get:
+      parameters:
+      - description: Portfolio item filter JSON string
+        in: query
+        name: filters
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get user items across chains
+      tags:
+      - Portfolio
+  /portfolio/listings:
+    get:
+      parameters:
+      - description: Portfolio listing filter JSON string
+        in: query
+        name: filters
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get user listings across chains
+      tags:
+      - Portfolio
+  /upload/cos-callback:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: COS callback payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.COSUploadResult'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Handle COS upload callback
+      tags:
+      - Upload
+  /upload/cos-policy:
+    get:
+      parameters:
+      - description: 'File type: image/video/audio/document'
+        in: query
+        name: file_type
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get COS upload policy
+      tags:
+      - Upload
+  /upload/cos-token:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: COS token request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.COSTokenRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.COSTokenResp'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get COS temporary token
+      tags:
+      - Upload
+  /user/{address}/login-message:
+    get:
+      parameters:
+      - description: Wallet address
+        in: path
+        name: address
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get login message
+      tags:
+      - User
+  /user/{address}/sig-status:
+    get:
+      parameters:
+      - description: Wallet address
+        in: path
+        name: address
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get signature status
+      tags:
+      - User
+  /user/login:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Login request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.LoginReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.UserLoginResp'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: User login
+      tags:
+      - User
+schemes:
+- http
+- https
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
